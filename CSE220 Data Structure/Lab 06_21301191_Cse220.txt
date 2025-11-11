@@ -1,0 +1,107 @@
+#TASK 1
+
+class KeyIndex:
+  def __init__(self,a):
+    max=a[0]
+    self.min=0
+   
+    for i in range(len(a)):
+     if a[i]>max:
+       max=a[i]
+     if self.min>a[i]:
+       self.min=a[i]
+  
+    new_min=self.min*(-1)
+    size=new_min+max+1
+    self.k=[0]*size
+    for j in range(len(a)):
+      self.k[a[j]+new_min]+=1  
+    print("Array k:",self.k)
+
+  def search(self,elem):
+    anew_min=self.min*(-1)
+    length=elem+anew_min
+    if elem<0:
+      if elem>=self.min and len(self.k)>=length:
+        if self.k[length]!=0:
+          var=True
+        else:
+          var=False
+      else:
+        var=False
+
+    if elem>=0:
+      if len(self.k)>length:
+        if self.k[length]!=0:
+          var=True
+        else:
+          var=False
+      else:
+         var=False
+    return var
+ 
+  def sort(self):
+    sorted_list= [0]*len(a)
+    a_min=self.min*(-1)
+    count=0
+    for index in range(0,len(self.k)):
+      while self.k[index]!= 0 : 
+          if self.min < 0 :                 
+               sorted_num = index-a_min
+               self.k[index]-= 1
+               sorted_list[count]=sorted_num
+               count+=1
+      
+          else:                                      
+              while self.k[index]!= 0 :
+                sorted_num=index
+                self.k[index]-=1 
+                sorted_list[count]=sorted_num
+                count+=1    
+    return sorted_list
+
+a=[-1,-2,-3,-4,-5,-1,-2]
+print('Given array:',a)
+p=KeyIndex(a)
+print(p.search(2))
+print(p.sort())
+
+
+
+
+#TASK 2
+
+class Hashtable: 
+  def __init__(self,arr,size=9):
+    self.size=size
+    self.arr=arr
+    self.hash_table=[0]*size
+ 
+  def hashing(self,string):
+    digit_sum=0
+    cons_num=0
+    for char in string:
+        if char not in 'AEIOU0123456789':
+            cons_num += 1
+        elif char in '0123456789':
+            digit_sum += int(char) 
+    store_val=(cons_num*24 + digit_sum) % 9 
+    return store_val
+
+
+  def linear_probing(self):
+    for i in range(len(self.arr)):
+      if i>=9:
+        break
+      else:
+       index = self.hashing(self.arr[i])  
+       while self.hash_table[index]!= 0:
+          index=(index+1)%len(self.hash_table)
+       self.hash_table[index]=self.arr[i]
+    return self.hash_table
+
+
+a=['ST1E89B8A32','STE89B8A32','STE89B8A2','2STE89B8A3','STE89B8A3']
+h= Hashtable(a) 
+print(h.linear_probing())
+

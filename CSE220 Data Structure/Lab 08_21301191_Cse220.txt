@@ -1,0 +1,225 @@
+#Task 1
+def minindex(arr,start,end):
+  if start==end:
+    return start
+  else:
+    k= minindex(arr,start+1,end)
+    if arr[k]<arr[start]:
+      return k
+    else:
+       return start
+    
+def selectionsort(arr,start,end):
+  if start==end:
+    return
+  else:
+    p= minindex(arr,start+1,end)
+    if arr[p]<arr[start]:
+      arr[start],arr[p]= arr[p], arr[start]
+    selectionsort(arr,start+1,end)
+      
+arr=[7,23,3,10,11]
+print(minindex(arr,0,(len(arr)-1)))
+selectionsort(arr,0,4)
+print(arr)
+
+
+
+#Task 2
+def insertion(arr,index):
+    if index<=1:
+        return  
+    insertion(arr,index-1)
+    l=index-2
+    last_num = arr[index-1]
+   
+    while l>=0 and arr[l]>last_num:
+        arr[l+1] = arr[l]
+        l=l-1
+    arr[l+1]=last_num
+     
+arr = [12,11,13,5,8,20]
+insertion(arr,len(arr))
+print(arr)
+
+
+
+#Task 3
+class Node:
+  def __init__(self,e):
+    self.element=e
+    self.next=None
+
+class LinkedList:
+  def __init__(self,a):
+    self.head=None
+    tail=None
+    for i in range(0,len(a)):
+          new_Node=Node(a[i])
+          if self.head==None:
+            self.head=new_Node
+            tail=new_Node
+          else:
+            tail.next=new_Node
+            tail=new_Node
+
+  def bubblesort(self):
+    head=self.head
+    tail=None
+    if self.head is None:
+      return
+    else:
+      while head!=None:
+        tail=head.next
+        while tail!=None:
+          if tail.element<head.element:
+            head.element,tail.element=tail.element,head.element
+          tail=tail.next
+        head=head.next
+
+  def showlist(self):
+        temp=self.head
+        while temp!=None:
+            print(temp.element,end=",")
+            temp=temp.next
+        print()
+
+
+arr=[12,11,13,5,8,20]
+a=LinkedList(arr)
+a.bubblesort()
+a.showlist()
+
+
+
+#Task 4
+class Node:
+    def __init__(self,e):
+        self.element=e
+        self.next=None
+
+class LinkedList:
+    def __init__(self, a):
+     self.head = None
+     tail=None
+     for i in range(0,len(a)):
+          new_Node=Node(a[i])
+          if self.head==None:
+            self.head=new_Node
+            tail=new_Node
+          else:
+            tail.next=new_Node
+            tail=new_Node
+
+    def showlist(self):
+        temp=self.head
+        while temp!=None:
+            print(temp.element,end=",")
+            temp=temp.next
+        print()
+
+    def selection_sort(self):
+        head=self.head
+        if self.head is None:
+            return
+        else:
+            while head.next != None:
+                tail=head
+                val=head.element
+                next_val=head.next
+                while next_val != None:
+                    if val>next_val.element:
+                        val=next_val.element
+                        tail=next_val
+                    next_val=next_val.next
+                head.element,tail.element = tail.element,head.element
+                head=head.next
+
+
+arr=[1, 4, 7, 45, 5, 33, 2, 8]
+b=LinkedList(arr)
+b.selection_sort()
+b.showlist()
+
+
+
+
+# Task 5
+class Node:
+  def __init__(self, e, n, p):
+    self.element = e
+    self.next = n
+    self.prev = p
+
+class Doublylinkedlist:
+    def __init__(self,arr):
+     self.head=Node(arr[0], None, None)
+     tail=self.head
+     for i in range(1, len(arr)):
+        new_node = Node(arr[i],None,tail)
+        tail.next=new_node
+        tail=new_node
+
+    def showlist(self):
+        temp=self.head
+        while temp!=None:
+            print(temp.element,end=",")
+            temp=temp.next
+        print()
+
+    def insertion_sort(self):
+        head=self.head
+        if head==None:
+            return
+        else:
+            while head is not None:
+                tail=head.next
+                while tail!= None and tail.prev!= None and tail.element<tail.prev.element:
+                    tail.element,tail.prev.element = tail.prev.element,tail.element
+                    tail=tail.prev
+                head=head.next
+
+
+arr= [7, -3, 6, 9, 3, 5, 99, 1]
+c=Doublylinkedlist(arr)
+c.insertion_sort()
+c.showlist()
+
+
+
+
+#Task 6
+def searchbinary(arr,s,start,end):
+  if start>end:
+    return -1
+  else:
+    midpoint=(start+end)//2
+    if arr[midpoint]==s:
+      return midpoint
+    else:
+      if arr[midpoint]>s:
+        return searchbinary(arr,s,start,midpoint-1)
+      else:
+        return searchbinary(arr,s,midpoint+1,end)
+
+arr=[10,23,25,43,56]
+print(searchbinary(arr,23,0,(len(arr)-1))
+
+
+
+
+#Task 7
+memoization = {}
+def fibonacci(n):
+    if n== 0 or n== 1:
+        return n
+    else:
+      if n in memoization:
+        return memoization[n]
+      else:
+        memoization[n]=fibonacci(n-1)+fibonacci(n-2)
+        item=memoization[n] 
+        return item
+
+a= int(input("Please enter your desired number:"))
+print(fibonacci(a))

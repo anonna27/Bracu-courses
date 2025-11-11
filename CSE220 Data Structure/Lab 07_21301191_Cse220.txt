@@ -1,0 +1,193 @@
+#task 1
+def factorial(n):
+    if n<=1:
+        return 1
+    return n*factorial(n-1)
+  
+def fibonacci(n):
+    if n<=1:
+        return n
+    return fibonacci(n-1)+fibonacci(n-2)
+
+def PrintArr(arr,idx):
+  if idx<len(arr):
+    print(arr[idx])
+    PrintArr(arr,idx+1)
+
+
+def PowerN(base,n):
+  if n==0:
+    return 1
+  return base*PowerN(base,n-1)
+
+
+a=[10,20,30,40,50]
+print(factorial(4))
+print(fibonacci(10))
+PrintArr(a,0)
+print(PowerN(3,3))
+
+
+#task 2a
+def Binary(n,F=0):
+  if n==0:
+    if F==0:
+      return 0
+    else:
+      return ''
+  return str(Binary(n//2,F+1)) + str(n%2)
+ 
+print(Binary(10))
+
+
+#task 2b
+class Node:
+  def __init__(self,val):
+    self.val=val
+    self.next=None
+
+class SinglyLinkedList:
+  def __init__(self,arr):
+    self.head=None
+    # tail=None
+    for i in arr:
+      new_node=Node(i)
+      if self.head==None:
+        self.head=new_node
+        tail= new_node 
+      else:
+          tail.next=new_node
+          tail=new_node
+
+  def sum(self,head):
+    if head==None:
+      return 0
+    else:
+      return head.val+ self.sum(head.next)
+
+a=[10,20,30,40]
+b=SinglyLinkedList(a)
+print(b.sum(b.head))
+
+
+
+#task 2c
+class Node:
+    def __init__(self, val):
+        self.val= val
+        self.next = None
+
+
+class SinglyLinklist:
+    def __init__(self,arr):
+        self.head = None
+        tail = None
+        for i in arr:
+            new_node = Node(i)
+            if self.head == None:
+                self.head = new_node
+                tail = new_node
+            else:
+                tail.next = new_node
+                tail = new_node
+    def printList(self):
+      n=self.head
+      while (n is not None):
+        print(n.val,end=',')
+        n=n.next
+      print("")
+
+    def reverse(self, head):
+        if head.next is None:
+          return head
+        else:
+            self.head=self.reverse(head.next)
+            head.next.next=head
+            head.next=None
+            return self.head
+    
+
+array = [10, 20, 30, 40, 50]
+a = SinglyLinklist(array)
+a.reverse(a.head)
+a.printList()
+
+
+#task 3
+def hocBuilder(height):
+    if height==0:
+        return "Did not build a house at all."
+    elif height==1:
+        return 8
+    else:
+        return 5+ hocBuilder(height-1)
+
+height = int(input("Enter height: "))
+print(hocBuilder(height))
+
+
+#task 4(a)
+def Pattern(num):
+    if num==0:
+        return
+    Pattern(num-1)
+    print(num,end=" ")
+
+def Printpattern(num):
+    if num==0:
+        return
+    Printpattern(num-1)
+    Pattern(num)
+    print()
+
+a =int(input("Enter your desired input for the Pattern: "))
+Printpattern(a)
+
+
+#task 4(b)
+def space(num):
+    if num==0:
+        return
+    space(num-1)
+    print(" ",end=" ")
+
+def number(num):
+    if num == 0:
+        return
+    number(num-1)
+    print(num,end=" ")
+
+def patternPrint(num,var):
+    if num==0:
+        return
+    space(num-1)
+    number((var)-num+1)
+    print()
+    patternPrint(num-1,var)
+
+a = int(input("Enter your desired input for reverse pattern: "))
+patternPrint(a,a)
+
+
+#task 5
+class FinalQ:
+    def print(self,array,idx):
+        if(idx < len(array)):
+            profit = self.calcProfit(array[idx])
+            print(f"{(idx+1)}. Investment:{array[idx]}; Profit:{profit} ")
+            self.print(array,idx+1)
+
+    def calcProfit(self,investment):
+        if investment<=25000:
+            return 0.0
+        elif investment<=100000 and investment>25000:
+            return 45 + self.calcProfit(investment-1000)
+        elif investment>100000:
+            return 80 + self.calcProfit(investment-1000)
+        else:
+            return 0.0
+
+array = [25000, 100000, 250000,350000]
+f = FinalQ()
+f.print(array,0)
+

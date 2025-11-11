@@ -1,0 +1,206 @@
+#Task 1
+class Node:
+  def __init__(self,val,next):
+    self.value=val
+    self.next=next
+
+#Task 1
+class stack:
+  def __init__(self):
+    self.top=None
+  
+  def push(self,elem):
+    n=Node(elem,None)
+    if self.top==None:
+      self.top= n
+    else:
+      n.next=self.top
+      self.top=n
+
+  def display(self):
+    temp=self.top
+    while (temp is not None):
+      if temp.next!=None:
+        print(temp.value,end=',')
+      else:
+        print(temp.value)
+      temp=temp.next
+
+
+  def peek(self):
+    if self.top==None:
+      return "Stack is empty"
+    else:
+      return self.top.value
+      
+  
+  def pop(self):
+    tem=self.top
+    if tem!=None:
+      self.top=tem.next
+    else: 
+      return None
+    return tem.value
+
+  def paranthesisBalancing(self,s): 
+    a=False
+    index=0
+    store=''
+    for i in s:
+      index+=1
+      if(i=="(" or i=="{" or i=="["):
+        self.push(i)
+      elif (i==")" or i=="}" or i=="]"):
+          topval=self.pop()
+          store=i
+          if topval==None:  
+            break  
+          if i==")":
+            if topval=="(":
+              a=True
+            else: 
+              break
+          if i=="}":
+            if topval=="{":
+              a=True
+            else:
+              break
+          if i=="]":
+            if topval=="[":
+                a=True
+            else: 
+                break
+      else:
+              pass
+
+
+    if a==True:
+       if self.top==None:
+         return ("This expression is correct")
+       else:
+        num=0
+        for k in s: 
+          num+=1
+          if k==topval:
+             break
+        phrase= f"This expression is not correct.\nError at character #{num}.'{topval}'-not closed." 
+        return phrase
+ 
+    elif a==False:
+      if self.top!=None:
+        num=0
+        for k in s: 
+          num+=1
+          if k==topval:
+             break
+        sentence= f"This expression is not correct.\nError at character #{num}.'{topval}'-not closed." 
+        return sentence
+      else:
+         word=f"This expression is not correct.\nError at character #{index}.'{store}'-not opened."
+         return word
+    
+
+#p="1+2]*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14"#
+stack1=stack()
+p=input("Please enter your desired input:")
+print("---------------------------------")
+print(p)
+print(stack1.paranthesisBalancing(p))
+
+
+
+
+#Task 2
+class StackArray:
+    def __init__(self):
+     self.stack=[0]*10
+     self.pointer=0
+     self.size=0
+
+    def push(self, data):
+      if len(self.stack)==self.size:
+        print("Stack overflow")
+      else:
+       self.stack[self.pointer]=data
+       self.pointer+=1
+       self.size+=1
+    
+    def peek(self):
+        if (self.size)==0:
+            return None
+        else:
+           return self.stack[self.pointer-1]
+      
+
+    def pop(self):
+        if self.size==0:
+           return "Stack underflow"
+        value=self.stack[self.pointer-1]
+        self.pointer-=1
+        self.size-=1
+        return value
+
+
+    def checkParentheses(self, s):
+        b=False
+        stored=""
+        index=0
+        for i in s:
+            index+=1
+            if(i=="(" or i=="{" or i=="["):
+                self.push(i)       
+            elif(i==")" or i=="}" or i=="]"):
+                cur_val=self.pop()     
+                stored=i
+                if cur_val is None:
+                    break
+                if i==")":
+                    if cur_val=="(":
+                        b=True
+                    else:               
+                        break
+                if i=="}":
+                    if cur_val=="{":
+                        b=True
+                    else:                  
+                        break
+                if i=="]":
+                    if cur_val=="[":
+                        b=True
+                    else:
+                        break
+            else:
+                pass
+ 
+        if b==True:
+            if(self.size)==0:
+                return ("This expression is correct")
+            else:
+             num=0
+             for k in s: 
+              num+=1
+              if k==cur_val:
+                break
+             phrase= f"This expression is not correct.\nError at character #{num}.'{cur_val}'-not closed." 
+             return phrase
+                
+        elif b==False:
+         if self.peek()!=None:
+          nums=0
+          for k in s: 
+            nums+=1
+            if k==cur_val:
+             break
+          sentence= f"This expression is not correct.\nError at character #{nums}.'{cur_val}'-not closed." 
+          return sentence
+         else:
+           word=f"This expression is not correct.\nError at character #{index}.'{stored}'-not opened."
+           return word
+
+
+#p="1+2]*[3*3+{4–5(6(7/8/9)+10)–11+(12*8)]+14"#
+stack2=StackArray()
+p=input("Please enter your desired input:")
+print("---------------------------------")
+print(p)
+print(stack2.checkParentheses(p))
