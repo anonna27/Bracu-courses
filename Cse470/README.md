@@ -1,2 +1,2 @@
-# Cse470
+# Cse470 : Software Engineering
 STORY TELLING PLATFORM
